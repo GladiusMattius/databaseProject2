@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WSG</title>
+    <link rel="stylesheet" type="text/css" href="../mainDesign.css"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btn-submit').click(function () {
+                var payload = {
+                    username: $('#user-email').val(),
+                    password: $('#user-password').val()
+                };
+
+		console.log(payload);
+
+                $.ajax({
+                    url: "/login",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function (data) {
+                        $('#output').html(data.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body style=background-color:#E6E6E6;>
+    <div id=container style=width:80%;margin-left:10%;background-color:#E6E6E6;>
+
+        <div id="header" class=header>
+            <h1 style=color:#FFFFFF;>Wilderness Survival Game</h1>
+        </div>
+
+        <div id="Links" class=menuBar>
+            <p>
+                <a id="home" href="">Home</a>  |
+                <a id="store" href="">Store</a>  |
+                <a id="account">Account</a>  |
+                <a id="about" href="">About</a>
+            </p>
+        </div>
+
+        <div id="content" class=mainContent>
+            <form>
+                <p>Email</p>
+                <input id="user-email" type="email">
+                <p>Password</p>
+                <input id="user-password" type="password">
+                <p>
+                    <input id="btn-submit" type="submit">
+                </p>
+            </form>
+            <a href="../createAccount/">Don't have an account? Click here to make one.</a>
+        </div>
+
+        <div id="footer" class=footer>
+            <p style=text-align:center;color:#FFFFFF;>this is the footer</p>
+        </div>
+    </div>
+</body>
+
+</html>
