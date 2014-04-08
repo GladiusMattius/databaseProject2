@@ -62,12 +62,13 @@ app.post('/createAccount', function (req, res) {
     connection.query('INSERT INTO Account SET ?', req.body, 
         function (err, result) {
             if (err) throw err;
-            connection.query('select Email, Password from Account where Email = ?', req.body.Email, 
+            connection.query('select Email, FirstName, LastName from Account where Email = ?', req.body.Email, 
 			     function (err, result) {
                     console.log(result);
                     if(result.length > 0) {
 			              res.send('Email: ' + result[0].Email + '<br />' +
-					              'Password: ' + result[0].Password
+					              'FirstName: ' + result[0].FirstName + '<br />' +
+'LastName: ' + result[0].LastName
 					             );
                     }
                     else
