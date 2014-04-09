@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WSG</title>
+    <link href="mainDesign.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#user-submit').click(function () {
+                var payload = {
+                    itemtype: $('#item-type').val(),
+                };
+
+		console.log(payload);
+
+                $.ajax({
+                    url: "/store",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function (data) {
+                        $('#output').html(data.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body style=background-color:#E6E6E6;>
+    <div id=container style=width:80%;margin-left:10%;background-color:#E6E6E6;>
+
+        <div id="header" class=header>
+            <h1 style=color:#FFFFFF;>Wilderness Survival Game</h1>
+        </div>
+
+        <div id="Links" class=menuBar>
+            <p>Home |
+                <a id="store" href="">Store</a> |
+                <a id="account" href="login/">Account</a> |
+                <a id="about" href="">About</a>
+            </p>
+        </div>
+
+        <div id="content" class=mainContent>
+            <form method="GET">
+                <p>Select Type:
+                    <select id="item-type" name="item-type">
+                        <option value="2">All</option>
+                        <option value="0">Food</option>
+                        <option value="1">Weapons</option>
+                    </select>
+                    </p>
+            </form>
+            <input type="submit">
+            <p id="output"></p>
+        </div>
+
+        <div id="footer" class=footer>
+            <p style=text-align:center;color:#FFFFFF;>this is the footer</p>
+        </div>
+    </div>
+</body>
+
+</html>
