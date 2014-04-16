@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quiz 9</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#submit').click(function() {
+                var payload = {
+                    Email: $('#user-email').val(),
+                    Password: $('#password').val(),
+                };
+
+                console.log(payload);
+
+                $.ajax({
+                    url: "/",
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(payload),
+                    complete: function(data) {
+                        $('#output').html(data.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body style=background-color:#E6E6E6;>
+    <div id=container style=width:80%;margin-left:10%;background-color:#E6E6E6;>
+
+        <form>
+            <p>Email</p>
+            <input id="user-email" type="email">
+            <p>Password</p>
+            <input id="user-password" type="password">
+        </form>
+
+        <input type="submit" id="submit">
+        <p id="output"></p>
+    </div>
+
+    </div>
+</body>
+
+</html>
