@@ -1,0 +1,15 @@
+<% include header %> 
+<% include links %>
+<% if(rs.length > 0){ %>
+
+        <div id="content" class=mainContent>
+            <p><b>Item Name</b></p>
+            <p><%= rs[0].Name %></p>
+            <p><b>Description</b></p>
+            <p><%= rs[0].Description %></p>
+            <p>Price: <%= rs[0].Price %> coins</p><br>
+            <input id="user-submit" type="submit" value="Add To Cart">
+        </div>
+
+<% } %>
+<% include footer %>

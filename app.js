@@ -4,6 +4,8 @@ var express = require('express'),   // web framework
     mysql   = require('mysql'),     // database
     connect = require('connect');   // GET and POST request parser
 
+var routes = require('./controller/index'); 
+
 var app = express();                
 app.use(connect.urlencoded());
 app.use(connect.json());
@@ -27,41 +29,16 @@ connection.query('USE matjohnson', function (err) {
 
 // Configuration
 
-app.use(express.bodyParser());
+// app.use(express.bodyParser());
 
 // Main route sends our HTML file
 
-app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/index.html');
-});
 
-app.get('/login', function (req, res) {
-    res.sendfile(__dirname + '/login.html');
-});
 
-app.get('/createAccount', function (req, res) {
-    res.sendfile(__dirname + '/createAccount.html');
-});
 
-app.get('/store', function (req, res) {
-    res.sendfile(__dirname + '/store.html');
-});
 
-/*app.get('/itemdetails', function (req, res) {
-    res.sendfile(__dirname + '/itemdetails.html');
-});
-*/
-// Update MySQL database
 
-/*app.post('/', function (req, res) {
-    console.log(req.body);
-    connection.query('INSERT INTO Account SET ?', req.body, 
-        function (err, result) {
-            if (err) throw err;
-            res.send('User added to database with ID: ' + result.insertId);
-        }
-    );
-});*/
+
 
 app.post('/createAccount', function (req, res) {
     console.log(req.body);
@@ -128,10 +105,13 @@ app.get('/itemdetails', function (req, res) {
     connection.query('select * from Item where Name = ?', req.query.Name,
         function (err, result) {
             console.log(result);
-            var responseHTML = '<p>Name: ' + result[0].Name + '<br> Description: ' +
-                result[0].Description + '</p>'
+            var values = {
+              Name: result[0].Name,
+              Description: result[0].Description,
+              Price: result[0].Price
+            };
 
-            res.send(responseHTML);
+            res.render('itemDetails', {rs:result});
         }
     );
 });
@@ -146,7 +126,8 @@ app.get('/lab18', function (req, res) {
     res.render('lab18');
 });
 
-// Begin listening
+app.use('/', routes);
 
+// Begin listening
 app.listen(8009);
 //console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
