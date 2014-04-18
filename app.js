@@ -36,7 +36,9 @@ connection.query('USE matjohnson', function (err) {
 
 
 
-
+app.get('/about', function (req, res){
+   res.render('about'); 
+});
 
 
 

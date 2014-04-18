@@ -1,5 +1,6 @@
 var express = require('express'); 
 var router = express.Router(); 
+ var ejs = require('ejs');       // templates
 
 router.get('/', function (req, res) {
     res.sendfile('index.html');
